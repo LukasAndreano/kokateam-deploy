@@ -1,22 +1,31 @@
 {
   "name": "kokateam-deploy",
-  "version": "1.0.12",
-  "description": "Deploy to koka team CDN with one simple command",
+  "version": "1.0.13",
+  "description": "Deploy applications to koka team CDN with one simple command",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "./bin/kokateam-deploy"
+    "deploy": "./bin/kokateam-deploy",
+    "prettier": "prettier --write ."
   },
+  "bugs": "https://github.com/LukasAndreano/kokateam-deploy/issues",
+  "homepage": "https://github.com/LukasAndreano/kokateam-deploy",
   "author": {
     "name": "koka team",
     "url": "https://vk.com/kokateam"
   },
-  "keywords": [],
+  "repository": "github:LukasAndreano/kokateam-deploy",
+  "keywords": [
+    "kokateam",
+    "deploy",
+    "vk mini apps",
+    "vkma",
+    "react hosting"
+  ],
   "bin": "./bin/kokateam-deploy",
   "engines": {
     "node": ">=8.10"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.27.2",
     "chalk": "^3.0.0",
@@ -28,5 +37,8 @@
     "prompts": "^2.4.2",
     "require-module": "^0.1.0",
     "zip-a-folder": "^1.1.5"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1"
   }
 }
