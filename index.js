@@ -24,7 +24,7 @@ const start = async () => {
     const get = await prompt({
       type: "text",
       name: "token",
-      message: chalk.magenta("Please, enter your token (starts with KOKA): ")
+      message: chalk.magenta("Please, enter your token (starts with KOKA): "),
     });
 
     if (get.token) access_token = get.token;
@@ -56,24 +56,18 @@ const start = async () => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: "Bearer " + access_token
-        }
+          Authorization: "Bearer " + access_token,
+        },
       }
     );
 
     if (uploadAction.data.response)
       console.log(`Deployed to ${uploadAction.data.url}`);
   } catch (err) {
-    if (err?.data?.error?.code) {
-      switch (err.data.error.code) {
-        case 0:
-          console.log("Invalid token! Run command again to enter a new token.");
-          vault.delete("access_token");
-          break;
-      }
-    } else {
-      console.error(`Error catched!\n\n${err}`);
-    }
+    console.log(
+      `Error catched! Removing token... run command again to enter a new token. ${err}`
+    );
+    vault.delete("access_token");
   }
 };
 
