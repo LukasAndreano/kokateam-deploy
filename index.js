@@ -51,7 +51,9 @@ const start = async () => {
 
   try {
     const uploadAction = await axios.post(
-      `https://deploy.nbalin.dev/v1/upload?app_id=${appConfig.app_id}`,
+      `https://deploy.nbalin.dev/v1/upload?app_id=${
+        appConfig.app_id
+      }&useRandomPrefix=${appConfig.useRandomPrefix || false}`,
       formData,
       {
         headers: {

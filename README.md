@@ -14,10 +14,12 @@ npm i -g kokateam-deploy
 
 ```
 # kokateam-deploy-config.json
+# useRandomPrefix - использовать рандомный префикс для выгрузки (моментальный обход кэша)
 
 {
   "static_path": "build",
-  "app_id": ""
+  "app_id": "",
+  "useRandomPrefix": false
 }
 ```
 

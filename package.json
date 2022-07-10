@@ -1,6 +1,6 @@
 {
   "name": "kokateam-deploy",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "Deploy applications to koka team CDN with one simple command",
   "main": "index.js",
   "scripts": {
