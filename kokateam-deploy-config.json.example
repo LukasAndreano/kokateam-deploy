@@ -1,0 +1,9 @@
+{
+  "static_path": "dist",
+  "app_id": "",
+  "purge_access_token": false,
+  "disable_dev_mode": false,
+  "web": true,
+  "mvk": false,
+  "mobile": false
+}
