@@ -1,6 +1,6 @@
 {
   "name": "kokateam-deploy",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "description": "Deploy applications to koka team CDN with one simple command.",
   "license": "MIT",
   "main": "index.js",
@@ -17,7 +17,7 @@
   "author": "Nikita Balin <n.balin@koka.team> (https://koka.team)",
   "scripts": {
     "dev": "tsc -w",
-    "build": "npm run prettify && tsc --build --clean && tsc",
+    "build": "npm run prettify && tsc --build --clean && tsc && mv ./dist/bin/kokateam-deploy.js ./dist/bin/kokateam-deploy && chmod +x ./dist/bin/kokateam-deploy",
     "prettify": "prettier --write .",
     "deploy": "./bin/kokateam-deploy",
     "release": "npm run build && cp package.json dist && cp README.md dist && cp -r bin dist && npm publish ./dist"
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@types/configstore": "^6.0.0",
+    "@types/fs-extra": "^11.0.1",
     "@types/glob": "^8.1.0",
     "@types/node": "^18.16.3",
     "@types/prompts": "^2.4.4",

@@ -1,17 +1,15 @@
 #!/usr/bin/env node
 
 const configFilePath = "./kokateam-deploy-config.json";
-const fs = require("fs-extra");
+import fs from "fs-extra";
 
 async function run() {
-  if (
-    fs.pathExists(configFilePath).then((res) => {
-      if (!res) {
-        console.error(configFilePath + " is missing");
-        return false;
-      }
-    })
-  );
+  const isConfigFileExists = await fs.pathExists(configFilePath);
+
+  if (!isConfigFileExists) {
+    console.error(configFilePath + " is missing");
+    return false;
+  }
 
   const configJSON = require("require-module")(configFilePath);
 
