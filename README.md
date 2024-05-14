@@ -1,8 +1,6 @@
 # koka team deploy
 
-Модуль выгрузки статики на [koka team](https://vk.com/kokateam) хостинг. Имеет два режима деплоя: **static** и **cdn**.
-
-При использовании **static** выгрузка происходит на [apps.koka.team](https://apps.koka.team) - сервер команды, а при **cdn** - на сеть G-Core Labs (VK Cloud Solutions). Чаще всего применяется режим **static**.
+Модуль выгрузки статики на [koka team](https://vk.com/kokateam) хостинг.
 
 ## Использование
 
@@ -16,21 +14,12 @@ npm i -g kokateam-deploy
 
 ```
 # kokateam-deploy-config.json
-# use_random_prefix - использовать рандомный префикс для выгрузки (моментальный обход кэша)
-# purge_access_token - удалить токен после выгрузки (по умолчанию false)
-# disable_dev_mode - отключить режим разработки после деплоя
-# web - выгружать для web
-# mvk - выгружать для mvk
-# mobile - выгружать для mobile
+# app_id - идентификатор приложения
+# static_path - путь к статике
 
 {
   "static_path": "build",
-  "app_id": "",
-  "purge_access_token": false,
-  "disable_dev_mode": false,
-  "web": true,
-  "mvk": false,
-  "mobile": false
+  "app_id": ""
 }
 ```
 
