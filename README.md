@@ -14,13 +14,20 @@ npm i -g kokateam-deploy
 
 ```
 # kokateam-deploy-config.json
-# app_id - идентификатор приложения
-# static_path - путь к статике
 
 {
-  "static_path": "build",
-  "app_id": ""
+  "static_path": "dist", // путь к билду
+  "app_id": "", // идентификатор приложения (к нему должен быть доступ)
+  "platforms": {
+    "mobile": true, // true - заменять URL на мобильные устройства, false - не заменять
+    "web": true, // true - заменять URL на десктоп, false - не заменять
+    "mvk": true, // true - заменять URL на mvk, false - не заменять
+  },
+  "upload_odr": true, // true - автоматически загружать ODR, false - не загружать
+  "send_odr_to_moderation": false, // true - отправить ODR в модерацию, false - не отправить (приоритетнее использовать через CLI)
+  "disable_dev_mode": false // true - отключить режим разработки, false - не отключить (приоритетнее использовать через CLI)
 }
+
 ```
 
 И наконец, сбилдите Ваш проект и запустите деплой:

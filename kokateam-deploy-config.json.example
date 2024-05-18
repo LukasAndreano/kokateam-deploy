@@ -1,4 +1,12 @@
 {
   "static_path": "dist",
-  "app_id": ""
+  "app_id": "",
+  "platforms": {
+    "mobile": true,
+    "web": true,
+    "mvk": true,
+  },
+  "upload_odr": true,
+  "send_odr_to_moderation": false,
+  "disable_dev_mode": false
 }

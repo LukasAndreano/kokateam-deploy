@@ -1,7 +1,7 @@
 {
   "name": "kokateam-deploy",
-  "version": "1.0.30",
-  "description": "Deploy applications to koka team CDN with one simple command.",
+  "version": "1.0.31",
+  "description": "Deploy applications to koka team static with one simple command.",
   "license": "MIT",
   "main": "index.js",
   "homepage": "https://github.com/LukasAndreano/kokateam-deploy",
