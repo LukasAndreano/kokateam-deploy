@@ -63,7 +63,7 @@ const start = async () => {
   formData.append("app", fs.createReadStream("app.zip"));
   formData.append(
     "app_id",
-    String(process.env.KOKATEAM_DEPLOY_APP_ID) || String(appConfig.app_id)
+    process.env.KOKATEAM_DEPLOY_APP_ID || String(appConfig.app_id)
   );
 
   try {
