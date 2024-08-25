@@ -1,6 +1,6 @@
 {
   "name": "kokateam-deploy",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "description": "Deploy applications to koka team static with one simple command.",
   "license": "MIT",
   "main": "index.js",

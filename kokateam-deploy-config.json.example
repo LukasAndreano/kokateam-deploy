@@ -1,9 +1,4 @@
 {
   "static_path": "dist",
-  "app_id": "",
-  "platforms": {
-    "mobile": true,
-    "web": true,
-    "mvk": true,
-  }
+  "app_id": ""
 }

@@ -25,7 +25,6 @@ const start = async () => {
     generateError("❌ Enter a valid app_id in kokateam-deploy-config.json!");
 
   let access_token: string = vault.get("access_token");
-  let user_token: string = vault.get("user_token");
 
   if (process.env.KOKATEAM_DEPLOY_TOKEN)
     access_token = process.env.KOKATEAM_DEPLOY_TOKEN;
@@ -59,24 +58,6 @@ const start = async () => {
     compression: COMPRESSION_LEVEL.high,
   });
 
-  const platforms =
-    process.env.KOKATEAM_DEPLOY_PLATFORMS || appConfig.platforms;
-
-  const requestPlatforms = [];
-
-  if (platforms) {
-    const keys = Object.keys(platforms);
-
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i];
-      const value = platforms[key];
-
-      if (value) {
-        requestPlatforms.push(key);
-      }
-    }
-  }
-
   const formData = new FormData();
 
   formData.append("app", fs.createReadStream("app.zip"));
@@ -84,7 +65,6 @@ const start = async () => {
     "app_id",
     process.env.KOKATEAM_DEPLOY_APP_ID || String(appConfig.app_id)
   );
-  formData.append("platforms", requestPlatforms.join(","));
 
   try {
     const uploadAction = await axios.post(
@@ -102,10 +82,6 @@ const start = async () => {
       switch (uploadAction.data.errorCode) {
         case 2:
           generateError("❌ Bad request!");
-          break;
-
-        case 4:
-          generateError("❌ Invalid platforms!");
           break;
 
         case 5:
@@ -127,15 +103,7 @@ const start = async () => {
     }
 
     if (uploadAction.data.data.url) {
-      let additionalData = "\n\n";
-
-      requestPlatforms.forEach((platform) => {
-        additionalData += `+ Replaced URL for ${platform}\n`;
-      });
-
-      console.log(
-        `\n✅ Deployed to ${uploadAction.data.data.url}${additionalData}`
-      );
+      console.log(`\n✅ Deployed to ${uploadAction.data.data.url}`);
 
       fs.rmSync("app.zip");
     }
