@@ -21,7 +21,7 @@ const generateError = (message: string) => {
 const start = async () => {
   if (!appConfig) generateError("❌ Create kokateam-deploy-config.json first!");
 
-  if (!appConfig.app_id || isNaN(parseInt(appConfig.app_id, 10)))
+  if (!appConfig.app_id)
     generateError("❌ Enter a valid app_id in kokateam-deploy-config.json!");
 
   let access_token: string = vault.get("access_token");
@@ -42,23 +42,6 @@ const start = async () => {
     if (promptRequest.token) access_token = promptRequest.token;
 
     vault.set("access_token", access_token);
-  }
-
-  if (process.env.KOKATEAM_DEPLOY_USER_TOKEN)
-    user_token = process.env.KOKATEAM_DEPLOY_USER_TOKEN;
-
-  if (!user_token) {
-    const promptRequest = await prompt({
-      type: "text",
-      name: "token",
-      message: chalk.magenta(
-        "🔐 Please, enter your VK token (u can get it from: https://oauth.vk.com/authorize?client_id=7598768&scope=65536&redirect_uri=https://oauth.vk.com/blank.html&display=page&response_type=token&revoke=1). Token will be saved in your local storage: "
-      ),
-    });
-
-    if (promptRequest.token) user_token = promptRequest.token;
-
-    vault.set("user_token", user_token);
   }
 
   if (!fs.existsSync("./" + appConfig.static_path))
@@ -97,32 +80,10 @@ const start = async () => {
   const formData = new FormData();
 
   formData.append("app", fs.createReadStream("app.zip"));
-  formData.append("user_token", user_token);
   formData.append(
     "app_id",
     process.env.KOKATEAM_DEPLOY_APP_ID || String(appConfig.app_id)
   );
-  formData.append(
-    "send_odr_to_moderation",
-    `${
-      process.env.KOKATEAM_DEPLOY_SEND_ODR_TO_MODERATION ||
-      appConfig.send_odr_to_moderation ||
-      false
-    }`
-  );
-  formData.append(
-    "disable_dev_mode",
-    `${
-      process.env.KOKATEAM_DEPLOY_DISABLE_DEV_MODE ||
-      appConfig.disable_dev_mode ||
-      false
-    }`
-  );
-  formData.append(
-    "upload_odr",
-    `${process.env.KOKATEAM_DEPLOY_UPLOAD_ODR || appConfig.upload_odr || false}`
-  );
-
   formData.append("platforms", requestPlatforms.join(","));
 
   try {
@@ -157,12 +118,8 @@ const start = async () => {
           generateError("❌ Access denied!");
           break;
 
-        case 6:
-          generateError("❌ Bad VK Token!");
-          break;
-
         default:
-          generateError(`❌ Error catched! Code: ${uploadAction.data.message}`);
+          generateError(`❌ Error caught! Code: ${uploadAction.data.message}`);
           break;
       }
 
@@ -175,24 +132,6 @@ const start = async () => {
       requestPlatforms.forEach((platform) => {
         additionalData += `+ Replaced URL for ${platform}\n`;
       });
-
-      if (uploadAction.data.data.odr_version) {
-        additionalData += `${
-          requestPlatforms.length ? "\n" : ""
-        }🆕 ODR version: ${uploadAction.data.data.odr_version} ${
-          uploadAction.data.data.sent_to_moderation
-            ? "(+ sent to moderation)"
-            : ""
-        }\n`;
-      }
-
-      if (uploadAction.data.data.disable_dev_mode) {
-        additionalData += `${
-          requestPlatforms.length || uploadAction.data.data.odr_version
-            ? "\n"
-            : ""
-        }💤 And also dev mode has been is disabled for all platforms\n`;
-      }
 
       console.log(
         `\n✅ Deployed to ${uploadAction.data.data.url}${additionalData}`
